@@ -34,7 +34,7 @@ const TopFormComponents: FC<TopFormComponentsProps> = ({nom, setAge, age, setCla
       </div>
       <div className='flex w-full my-5'>
         <article className='w-[12.5cm]'>
-          <label htmlFor='date' >Date de l'examen : </label>
+          <label htmlFor='date' >Date de l&apos;examen : </label>
           <input className='outline-none border-b border-black w-[6.5cm]' type="date" id="date" required onChange={(event: FormEvent<HTMLInputElement>)=> setDateTest(event.currentTarget.value)}  />
         </article>
         <article className='w-[9cm]'>

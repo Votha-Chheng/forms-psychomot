@@ -45,12 +45,12 @@ const BottomFormComponents: FC = () => {
   return (
     <section className='flex'>
       <div className='w-[50%]'>
-        <h2 className='text-sm'>Notes d'items et notes standard correspondantes</h2>
+        <h2 className='text-sm'>Notes d&apos;items et notes standard correspondantes</h2>
         <article className='flex border border-black'>
-          <div className='text-xs text-center flex items-center border-r border-black min-w-[69.41px] '>Code de l'item</div>
-          <div className='text-xs text-center flex items-center border-r px-1 border-black min-w-[85px]'>Nom de l'item</div>
+          <div className='text-xs text-center flex items-center border-r border-black min-w-[69.41px] '>Code de l&apos;item</div>
+          <div className='text-xs text-center flex items-center border-r px-1 border-black min-w-[85px]'>Nom de l&apos;item</div>
           <div className='text-xs text-center flex items-center border-r px-1 border-black'>Note brute (meilleur essai)</div>
-          <div className='text-xs text-center flex items-center min-w-[104px]'>Note standard de l'item</div>
+          <div className='text-xs text-center flex items-center min-w-[104px]'>Note standard de l&apos;item</div>
         </article>
 
         <article className='flex border border-black'>

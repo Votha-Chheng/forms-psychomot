@@ -4,7 +4,6 @@ import React, { FC, useState } from 'react'
 import PageA4 from '../layout/PageA4'
 import TopFormComponents from './TopFormComponents'
 import BottomFormComponents from './BottomFormComponents'
-import PdfDocument from '../pdfDocument'
 
 const CahierNotations: FC = () => {
   const [nom, setNom] = useState<string>("")

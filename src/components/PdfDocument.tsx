@@ -34,7 +34,7 @@ const PdfDocument: FC<PdfDocumentProps> = ({nom, prenom, age, classe, dateTest})
           </div>
           <div className='flex w-full my-5'>
             <article className='w-[12.5cm]'>
-              <span>Date de l'examen : </span>
+              <span>Date de l&apos;examen : </span>
               <span>{dateTest}</span>
             </article>
             <article className='w-[9cm]'>
