@@ -238,4 +238,6 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
   )
 })
 
+PdfDocument.displayName = 'PdfDocument';
+
 export default PdfDocument
