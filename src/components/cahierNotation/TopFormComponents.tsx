@@ -39,7 +39,7 @@ const TopFormComponents: FC<TopFormComponentsProps> = ({nom, setAge, age, setCla
         </article>
         <article className='w-[9cm]'>
           <label htmlFor='classe' >Classe actuelle : </label>
-          <input className='outline-none border-b border-black w-[4cm]' type="number" id="classe" required  onChange={(event: FormEvent<HTMLInputElement>)=> setClasse(event.currentTarget.value)} />
+          <input className='outline-none border-b border-black w-[4cm]' type="text" id="classe" required  onChange={(event: FormEvent<HTMLInputElement>)=> setClasse(event.currentTarget.value)} />
         </article>
       </div>
     </section>
