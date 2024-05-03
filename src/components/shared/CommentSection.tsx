@@ -8,13 +8,13 @@ type CommentSectionProps = {
 }
 
 const CommentSection: FC<CommentSectionProps> = ({ setText, text }) => {
-  const module = {
+  const moduleOptions = {
     toolbar: ['bold', 'italic', 'underline', 'strike']
   }
   return (
     <section className='my-1.5'>
       <h3 className='text-sm font-bold'>Commentaires et remarques</h3>
-      <ReactQuill modules={module} theme="snow" value={text} onChange={setText} />
+      <ReactQuill modules={moduleOptions} theme="snow" value={text} onChange={setText} />
     </section>
   )
 }
