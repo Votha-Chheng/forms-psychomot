@@ -77,8 +77,9 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
     }
 ) => {
 
-
-  
+  const returnFontSize = (scoreTotalTest: string)=> {
+    return scoreTotalTest === "En attente des résultats des 8 items" ? "text-xs":"text-base"
+  }
 
   return (
     <section className='flex'>
@@ -92,7 +93,7 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
         </article>
 
         <article className='flex border border-black'>
-          <div className='text-xs flex items-center border-r border-black min-w-[69.41px] pl-1'>DM1*</div>
+          <div className='text-xs flex items-center border-r border-black min-w-[69.41px] pl-1'>DM1</div>
           <div className='text-xs text-center flex items-center border-r border-black flex-col min-w-[85px]'>
             <div className='border-b border-black py-1.5'>Placer chevilles main préférée</div>
             <div className='py-1.5'>Placer chevilles main non préférée</div>
@@ -243,7 +244,7 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
             <b>Note totale de test</b><br/>
             Somme des notes standard des 8 items
           </div>
-          <div className='px-1 text-center text-red-800 font-bold flex justify-center items-center w-1/2 text-base'>
+          <div className={`${returnFontSize(returnFontSize(scoreTotalTest))} px-1 text-center text-red-800 font-bold flex justify-center items-center w-1/2 text-base`}>
             { scoreTotalTest }
           </div>
         </article>
@@ -271,11 +272,11 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
       <div className='w-[40%] relative'>
         <article className='absolute' style={{top: `${103}px`}}>
           <h3 className='text-sm'>
-            Trois notes de composantes**
+            Trois notes de composantes
           </h3>
           <div className='flex flex-col text-xs'>
             <div className='items-center border border-black p-2'>
-              <b>Dextérité manuelle</b>*** DM1 + DM2 + DM3
+              <b>Dextérité manuelle</b> DM1 + DM2 + DM3
             </div>
             <div className='flex border border-black'>
               <div className='w-1/2 border-r border-black p-1 flex-col flex'>
@@ -292,7 +293,7 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
 
         <article className='absolute text-xs' style={{top: `${296 - 41.5}px`}}>
           <div className='items-center border border-black p-2'>
-            <b>Viser et attrapper</b>*** VA1 + VA2
+            <b>Viser et attrapper</b> VA1 + VA2
           </div>
           <div className='flex border border-black'>
             <div className='w-1/2 border-r border-black p-1 flex flex-col gap-1'>
