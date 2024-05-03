@@ -1,81 +1,89 @@
 'use client'
 
-import React, { FC, FormEvent, useMemo, useState } from 'react'
+import { BottomFormComponentsProps } from '@/@types/CahierNotationProps'
+import React, { FC, FormEvent } from 'react'
 
-const BottomFormComponents: FC = () => {
+const BottomFormComponents: FC<BottomFormComponentsProps> = (
+  {
+    DM1End,
+    eq1End,
+    eq3End,
+    scoreTotalTest,
+    DMScoreTotal,
+    VAScoreTotal,
+    eqScoreTotal,
+    DM1a1Top,
+    setDM1a1Top,
+    DM1a2Top,
+    setDM1a2Top,
+    DM1a1Bottom,
+    setDM1a1Bottom,
+    DM1a2Bottom,
+    setDM1a2Bottom,
 
-  const [DM1a1Top, setDM1a1Top] = useState<string>("")
-  const [DM1a2Top, setDM1a2Top] = useState<string>("")
-  const [DM1a1Bottom, setDM1a1Bottom] = useState<string>("")
-  const [DM1a2Bottom, setDM1a2Bottom] = useState<string>("")
+    percentileTotal,
+    setPercentileTotal,
 
-  const DM1End = useMemo(()=> {
-    return (DM1a2Top !== "" && DM1a2Bottom !=="") ? ((+DM1a2Top) + (+DM1a2Bottom)) / 2 : "Vide"
-  }, [DM1a2Top, DM1a2Bottom])
+    DM2NoteBrute,
+    setDM2NoteBrute,
+    DM2NoteStandard,
+    setDM2NoteStandard,
 
-  const [DM2NoteBrute, setDM2NoteBrute] = useState<string>("")
-  const [DM2NoteStandard, setDM2NoteStandard] = useState<string>("")
+    DM3NoteBrute, 
+    setDM3NoteBrute,
+    DM3NoteStandard, 
+    setDM3NoteStandard,
 
-  const [DM3NoteBrute, setDM3NoteBrute] = useState<string>("")
-  const [DM3NoteStandard, setDM3NoteStandard] = useState<string>("")
+    DMPercentile, 
+    setDMPercentile,
 
-  const [DMPercentile, setDMPercentile] = useState<string>("")
+    VA1NoteBrute, 
+    setVA1NoteBrute,
+    VA1NoteStandard, 
+    setVA1NoteStandard,
 
-  const [VA1NoteBrute, setVA1NoteBrute] = useState<string>("")
-  const [VA1NoteStandard, setVA1NoteStandard] = useState<string>("")
-  const [VA2NoteBrute, setVA2NoteBrute] = useState<string>("")
-  const [VA2NoteStandard, setVA2NoteStandard] = useState<string>("")
-  const [VAPercentile, setVAPercentile] = useState<string>("")
+    VA2NoteBrute, 
+    setVA2NoteBrute,
+    VA2NoteStandard, 
+    setVA2NoteStandard,
 
-  const [eq1a1Top, setEq1a1Top] = useState<string>("")
-  const [eq1a1Bottom, setEq1a1Bottom] = useState<string>("")
-  const [eq1a2Top, setEq1a2Top] = useState<string>("")
-  const [eq1a2Bottom, setEq1a2Bottom] = useState<string>("")
+    VAPercentile, 
+    setVAPercentile,
 
-  const eq1End = useMemo(()=> {
-    return (eq1a2Top !== "" && eq1a2Bottom !=="") ? ((+eq1a2Top) + (+eq1a2Bottom)) / 2 : "Vide"
-  }, [eq1a2Top, eq1a2Bottom])
+    eq1a1Top, 
+    setEq1a1Top,
+    eq1a1Bottom, 
+    setEq1a1Bottom,
+    eq1a2Top, 
+    setEq1a2Top,
+    eq1a2Bottom, 
+    setEq1a2Bottom,
 
-  const [eq2NoteBrute, setEq2NoteBrute] = useState<string>("")
-  const [eq2NoteStandard, setEq2NoteStandard] = useState<string>("")
+    eq2NoteBrute,
+    setEq2NoteBrute,
+    eq2NoteStandard,
+    setEq2NoteStandard,
+  
+    eq3a1Top,
+    setEq3a1Top,
+    eq3a1Bottom,
+    setEq3a1Bottom,
+    eq3a2Top,
+    setEq3a2Top,
+    eq3a2Bottom,
+    setEq3a2Bottom,
+    eqPercentile,
+    setEqPercentile
+    }
+) => {
 
-  const [eq3a1Top, setEq3a1Top] = useState<string>("")
-  const [eq3a1Bottom, setEq3a1Bottom] = useState<string>("")
-  const [eq3a2Top, setEq3a2Top] = useState<string>("")
-  const [eq3a2Bottom, setEq3a2Bottom] = useState<string>("")
 
-  const eq3End = useMemo(()=> {
-    return (eq3a2Top !== "" && eq3a2Bottom !=="") ? ((+eq3a2Top) + (+eq3a2Bottom)) / 2 : "Vide"
-
-  }, [eq3a2Top, eq3a2Bottom])
-
-  const DMScoreTotal = useMemo(()=> {
-    return (DM1End !== "Vide" && DM2NoteStandard !== "" && DM3NoteStandard!== "") ?(+DM1End) + (+DM2NoteStandard) + (+DM3NoteStandard) :"En attente de valeurs pour tous les items DM"
-    
-  }, [DM1End, DM2NoteStandard, DM3NoteStandard])
-
-  const VAScoreTotal = useMemo(()=> {
-    return (VA1NoteStandard !== "" && VA2NoteStandard!== "") ? (+VA1NoteStandard) + (+VA2NoteStandard) :"En attente de valeurs pour tous les items VA"
-
-  }, [VA1NoteStandard, VA2NoteStandard])
-
-  const EqScoreTotal = useMemo(()=> {
-    return (eq1End !== "Vide" && eq2NoteStandard !== "" && eq3End !== "Vide") ? (+eq1End) + (+eq2NoteStandard) + (+eq3End) :"En attente de valeurs pour tous les items Eq."
-
-  }, [eq1End, eq2NoteStandard, eq3End])
-
-  const [percentileTotal, setPercentileTotal] = useState<string>("")
-
-  const scoreTotalTest = useMemo(()=> {
-    return (typeof(DMScoreTotal) !== "string" && typeof(VAScoreTotal) !== "string" && typeof(EqScoreTotal) !== "string") ? (+DMScoreTotal) + (+VAScoreTotal) + (+EqScoreTotal) :"En attente des résultats des 8 items"
-
-  }, [DMScoreTotal, VAScoreTotal, EqScoreTotal])
   
 
   return (
     <section className='flex'>
       <div className='w-[50%]'>
-        <h2 className='text-sm'>Notes d&apos;items et notes standard correspondantes</h2>
+        <h2 className='text-sm font-bold'>Notes d&apos;items et notes standard correspondantes</h2>
         <article className='flex border border-black'>
           <div className='text-xs text-center flex items-center border-r border-black min-w-[69.41px] '>Code de l&apos;item</div>
           <div className='text-xs text-center flex items-center border-r px-1 border-black min-w-[85px]'>Nom de l&apos;item</div>
@@ -89,9 +97,9 @@ const BottomFormComponents: FC = () => {
             <div className='border-b border-black py-1.5'>Placer chevilles main préférée</div>
             <div className='py-1.5'>Placer chevilles main non préférée</div>
           </div>
-          <div className='text-xs text-center flex items-center border-r border-black flex-col'>
-            <input className='border-b border-black py-1.5 w-[115px] p-1 h-[61px] px-2' value={DM1a1Top} onChange={(event:FormEvent<HTMLInputElement>)=>setDM1a1Top(event.currentTarget.value)}/>
-            <input className='py-1.5 w-[115px] h-[61px] px-2' value={DM1a1Bottom} onChange={(event:FormEvent<HTMLInputElement>)=>setDM1a1Bottom(event.currentTarget.value)}/>
+          <div className='text-xs flex items-center border-r border-black flex-col'>
+            <input className='border-b text-center border-black py-1.5 w-[115px] p-1 h-[61px] px-2' value={DM1a1Top} onChange={(event:FormEvent<HTMLInputElement>)=>setDM1a1Top(event.currentTarget.value)}/>
+            <input className='py-1.5 text-center w-[115px] h-[61px] px-2' value={DM1a1Bottom} onChange={(event:FormEvent<HTMLInputElement>)=>setDM1a1Bottom(event.currentTarget.value)}/>
           </div>
           <div className='text-xs text-center flex items-center min-w-[104px]'>
             <div className='flex flex-col w-1/2 justify-center border-r border-black font-bold bg-green-400 h-[122px]'>
@@ -158,13 +166,14 @@ const BottomFormComponents: FC = () => {
             <div className='py-1.5 h-[61px]'>&Eacute;q. sur planche autre jambe</div>
           </div>
           <div className='text-xs text-center flex items-center border-r border-black flex-col'>
-            <input className='border-b border-black py-1.5 w-[115px] p-1 h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a1Top(event.currentTarget.value)} value={eq1a1Top}/>
-            <input className='py-1.5 w-[115px] h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a1Bottom(event.currentTarget.value)} value={eq1a1Bottom}/>
+            <input className='border-b text-center border-black py-1.5 w-[115px] p-1 h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a1Top(event.currentTarget.value)} value={eq1a1Top}/>
+            <input className='py-1.5 text-center w-[115px] h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a1Bottom(event.currentTarget.value)} value={eq1a1Bottom}/>
           </div>
           <div className='text-xs text-center flex items-center min-w-[104px]'>
             <div className='flex flex-col w-1/2 justify-center border-r border-black h-[122px]'>
               <div className='h-[61px] bg-purple-700 flex items-center justify-center border-b border-black'>
-                <input className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
+                <input 
+                  className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
                   onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a2Top(event.currentTarget.value)} 
                   value={eq1a2Top}
                 />
@@ -184,9 +193,15 @@ const BottomFormComponents: FC = () => {
         </article>
         <article className='text-xs flex border border-black'>
           <div className='text-center flex items-center border-r border-black min-w-[69.41px] pl-1'>&Eacute;q2</div>
-          <div className='text-center flex items-center border-r px-1 border-black min-w-[85px]'>Marcher T/P en avant</div>
-          <input className='border-r border-black py-1.5 w-[116px] p-1 px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq2NoteBrute(event.currentTarget.value)} value={eq2NoteBrute}/>
-          <input className='py-1.5 w-[104px] p-1 px-2 text-center text-purple-700 font-bold' onChange={(event:FormEvent<HTMLInputElement>)=>setEq2NoteStandard(event.currentTarget.value)} value={eq2NoteStandard}/>
+          <div className='text-center flex items-center border-r px-1 border-black max-w-[85px] min-w-[85px]'>Marcher T/P en avant</div>
+          <input className='border-r text-center border-black py-1.5 w-[116px] p-1 px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq2NoteBrute(event.currentTarget.value)} value={eq2NoteBrute}/>
+          <div className='w-[104px] bg-purple-700 flex justify-center items-center'>
+            <input 
+              className='text-center w-[50px] h-[22px] rounded-lg px-2 bg-white py-1.5 text-purple-700 font-bold p-1' 
+              onChange={(event:FormEvent<HTMLInputElement>)=>setEq2NoteStandard(event.currentTarget.value)} 
+              value={eq2NoteStandard}
+            />
+          </div>
         </article>
         <article className='flex border border-black'>
           <div className='text-xs flex items-center border-r border-black min-w-[69.41px] pl-1'>&Eacute;q3*</div>
@@ -195,14 +210,15 @@ const BottomFormComponents: FC = () => {
             <div className='py-1.5 h-[61px]'>Sauter à cloche-pied autre jambe</div>
           </div>
           <div className='text-xs text-center flex items-center border-r border-black flex-col'>
-            <input className='border-b border-black py-1.5 w-[115px] p-1 h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a2Top(event.currentTarget.value)} value={eq3a1Top}/>
-            <input className='py-1.5 w-[115px] h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a1Bottom(event.currentTarget.value)} value={eq3a1Bottom}/>
+            <input className='border-b text-center border-black py-1.5 w-[115px] p-1 h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a1Top(event.currentTarget.value)} value={eq3a1Top}/>
+            <input className='py-1.5 text-center w-[115px] h-[61px] px-2' onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a1Bottom(event.currentTarget.value)} value={eq3a1Bottom}/>
           </div>
           <div className='text-xs text-center flex items-center min-w-[104px]'>
             <div className='text-xs text-center flex items-center min-w-[104px]'>
               <div className='flex flex-col w-1/2 justify-center border-r border-black h-[122px]'>
                 <div className='h-[61px] bg-purple-700 flex items-center justify-center border-b border-black'>
-                  <input className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
+                  <input 
+                    className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
                     onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a2Top(event.currentTarget.value)} 
                     value={eq3a2Top}
                   />
@@ -218,7 +234,6 @@ const BottomFormComponents: FC = () => {
               <div className='min-w-[50%]'>
                 <span className='px-1 h-[122px] w-[51px] text-purple-700 font-bold'>{eq3End}</span>
               </div>
-
             </div>
           </div>
         </article>
@@ -228,7 +243,7 @@ const BottomFormComponents: FC = () => {
             <b>Note totale de test</b><br/>
             Somme des notes standard des 8 items
           </div>
-          <div className='px-1 text-center text-red-800 font-bold text-xs flex justify-center items-center w-1/2'>
+          <div className='px-1 text-center text-red-800 font-bold flex justify-center items-center w-1/2 text-base'>
             { scoreTotalTest }
           </div>
         </article>
@@ -245,7 +260,7 @@ const BottomFormComponents: FC = () => {
 
         <div className='border-t-2 border-r-2 border-b-2 border-black w-1/2 absolute' style={{bottom: `109px`, height:`158px`}} />
         <div className='border border-black w-1/2 absolute left-1/2' style={{bottom: `${109+79}px`}} />
-        <div className='absolute -right-0.5' style={{bottom: `${109+79-12}px`}}>&#9654;</div>
+        <div className='absolute -right-0.5' style={{bottom: `${109+81-12}px`}}>&#9654;</div>
 
         <div className='border border-black w-1/2 absolute' style={{bottom: `20px`}} />
         <div className='border border-black w-1/2 absolute left-1/2' style={{bottom: `28.5px`}} />
@@ -263,13 +278,13 @@ const BottomFormComponents: FC = () => {
               <b>Dextérité manuelle</b>*** DM1 + DM2 + DM3
             </div>
             <div className='flex border border-black'>
-              <div className='w-1/2 border-r border-black p-1 '>
-                Note de composante : <br/>
-                <span className='text-green-800 font-bold'>{DMScoreTotal}</span>
+              <div className='w-1/2 border-r border-black p-1 flex-col flex'>
+                <span>Note de composante :</span>
+                <span className='text-green-800 font-bold text-center text-sm'>{DMScoreTotal}</span>
               </div>
               <div className='w-1/2 p-1'>
                 Percentile :
-                <input className='text-base w-full border-b border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setDMPercentile(event.currentTarget.value)} value={DMPercentile}/>
+                <input className='text-sm text-right font-bold px-1.5 w-full border-b border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setDMPercentile(event.currentTarget.value)} value={DMPercentile}/>
               </div>
             </div>
           </div>
@@ -280,13 +295,13 @@ const BottomFormComponents: FC = () => {
             <b>Viser et attrapper</b>*** VA1 + VA2
           </div>
           <div className='flex border border-black'>
-            <div className='w-1/2 border-r border-black p-1'>
-              Note de composante : <br/>
-              <span className='text-blue-500 font-bold'>{VAScoreTotal}</span>
+            <div className='w-1/2 border-r border-black p-1 flex flex-col gap-1'>
+              <span>Note de composante : </span>
+              <span className='text-blue-500 font-bold text-center text-sm'>{VAScoreTotal}</span>
             </div>
             <div className='w-1/2 p-1'>
               Percentile :
-              <input className='text-xs w-full border-b border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setVAPercentile(event.currentTarget.value)} value={VAPercentile}/>
+              <input className='text-sm text-right font-bold w-full border-b border-black px-1.5' onChange={(event: FormEvent<HTMLInputElement>)=> setVAPercentile(event.currentTarget.value)} value={VAPercentile}/>
             </div>
           </div>
         </article>
@@ -296,13 +311,13 @@ const BottomFormComponents: FC = () => {
             <b>&Eacute;quilibre</b>*** &Eacute;q1 + &Eacute;q2 + &Eacute;q3
           </div>
           <div className='flex border border-black'>
-            <div className='w-1/2 border-r border-black p-1'>
-              Note de composante : <br/>
-              <span className='text-purple-700 font-bold'>{EqScoreTotal}</span>
+            <div className='w-1/2 border-r border-black p-1 flex flex-col gap-1'>
+              <span>Note de composante :</span>
+              <span className='text-purple-700 font-bold text-center text-sm'>{eqScoreTotal}</span>
             </div>
             <div className='w-1/2 p-1'>
               Percentile :
-              <input className='text-base w-full border-b border-black'/>
+              <input className='text-sm text-right px-1.5 font-bold w-full border-b border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setEqPercentile(event.currentTarget.value)} value={eqPercentile}/>
             </div>
           </div>
         </article>
@@ -317,11 +332,11 @@ const BottomFormComponents: FC = () => {
             </div>
           </div>
           <div className='flex items-center border border-black'>
-            <div className='w-1/2 border-r text-center border-black p-1 font-bold pt-2.5'>
+            <div className='w-1/2 border-r text-center border-black p-1 text-sm font-bold pt-2.5'>
               { scoreTotalTest }
             </div>
             <div className='w-1/2 p-1 font-bold'>
-              <input className='text-base w-full border-b border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setPercentileTotal(event.currentTarget.value)} value={percentileTotal}/>
+              <input className='text-sm text-right font-bold w-full border-b px-1.5 border-black' onChange={(event: FormEvent<HTMLInputElement>)=> setPercentileTotal(event.currentTarget.value)} value={percentileTotal}/>
             </div>
           </div>
         </article>

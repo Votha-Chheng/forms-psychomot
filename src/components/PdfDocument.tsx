@@ -2,8 +2,10 @@ import React, { FC, ForwardedRef, forwardRef, ForwardRefExoticComponent, RefAttr
 import FourRowsCells from './pdfCahierNotation/FourRowsCells'
 import ThreeCellsPDF from './pdfCahierNotation/ThreeCellsPDF'
 import TwoVerticalCellsPDF from './pdfCahierNotation/TwoVerticalCellsPDF'
+import { transformDateToFrench } from '@/utils/transformDateToFrench'
+import { DataBottomFormCommponent } from '@/@types/CahierNotationProps'
 
-type PdfDocumentProps = {
+type PdfDocumentProps = DataBottomFormCommponent & {
   nom: string
   prenom: string
   age: number
@@ -13,7 +15,47 @@ type PdfDocumentProps = {
 }
 
 
-const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, PdfDocumentProps> (({nom, prenom, age, classe, dateTest, comment}, ref) => {
+const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HTMLDivElement>> = forwardRef<HTMLDivElement, PdfDocumentProps> ((
+  {
+    nom, 
+    prenom, 
+    age, 
+    classe, 
+    dateTest, 
+    comment,
+    percentileTotal,
+    DM1End,
+    DMScoreTotal,
+    VAScoreTotal,
+    DM1a1Top,
+    DM1a2Top,
+    DM1a1Bottom,
+    DM1a2Bottom,
+    DM2NoteBrute,
+    DM2NoteStandard,
+    DM3NoteBrute, 
+    DM3NoteStandard, 
+    DMPercentile, 
+    VA1NoteBrute, 
+    VA1NoteStandard, 
+    VA2NoteBrute, 
+    VA2NoteStandard, 
+    VAPercentile, 
+    eq1a1Top, 
+    eq1a1Bottom, 
+    eq1a2Top, 
+    eq1a2Bottom, 
+    eq2NoteBrute,
+    eq2NoteStandard,  
+    eq3a1Top,
+    eq3a1Bottom,
+    eq3a2Top,
+    eq3a2Bottom,
+    eqScoreTotal,
+    eqPercentile,
+    scoreTotalTest
+  }, ref
+) => {
   return (
     <main className='w-[21cm] h-[29.7cm] mx-auto px-2 bg-white mt-2' ref={ref} >
       <h2 className='text-center mb-2.5 -pt-2.5 font-bold uppercase'>Cahier de notation</h2>
@@ -33,7 +75,7 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
         </div>
         <div className='flex w-full my-5'>
           <article className='w-[12.5cm]'>
-            <span>Date du test : </span> <span className='font-bold'>{dateTest}</span>
+            <span>Date du test : </span> <span className='font-bold'>{transformDateToFrench(dateTest)}</span>
           </article>
           <article className='w-[9cm]'>
             <span>Classe actuelle : </span> <span className='font-bold'>{classe}</span>
@@ -55,22 +97,22 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               maxWidth='96px'
             />
             <TwoVerticalCellsPDF
-              top='Placer chevilles main préférée'
-              bottom='Placer chevilles main non préférée'
+              top={DM1a1Top}
+              bottom={DM1a1Bottom}
               minWidth="118px"
               maxWidth="118px"
             />
             <ThreeCellsPDF
-              topLeft='65'
-              bottomLeft='65'
-              right='12'
+              topLeft={DM1a2Top}
+              bottomLeft={DM1a2Bottom}
+              right={`${((+DM1a1Bottom) + (+DM1a1Top))/2}`}
             />
           </div>
-          <FourRowsCells borderTop={false} bold={false} cell1="DM2" cell2="Lacet" cell3="DM2NoteBrute" cell4="DM2NoteStandard"/>
-          <FourRowsCells borderTop={false} bold={false} cell1="DM3" cell2="Trajet 2" cell3="DM3NoteBrute" cell4="DM3NoteStandard"/>
+          <FourRowsCells borderTop={false} bold={false} cell1="DM2" cell2="Lacet" cell3={DM2NoteBrute} cell4={DM2NoteStandard}/>
+          <FourRowsCells borderTop={false} bold={false} cell1="DM3" cell2="Trajet 2" cell3={DM3NoteBrute} cell4={DM3NoteStandard}/>
           <div className='h-2.5' />
-          <FourRowsCells bold={false} cell1="VA1" cell2="Attrapper avec 2 mains" cell3="DM2NoteBrute" cell4="DM2NoteStandard"/>
-          <FourRowsCells borderTop={false} bold={false} cell1="VA2" cell2="Lancer sac" cell3="DM3NoteBrute" cell4="DM3NoteStandard"/>
+          <FourRowsCells bold={false} cell1="VA1" cell2="Attrapper avec 2 mains" cell3={VA1NoteBrute} cell4={VA1NoteStandard}/>
+          <FourRowsCells borderTop={false} bold={false} cell1="VA2" cell2="Lancer sac" cell3={VA2NoteBrute} cell4={VA2NoteStandard}/>
           <div className='h-2.5' />
           <div className='w-full flex border-t border-black'>
             <div className='min-w-[70px] border-l border-r border-b border-black flex items-center pl-1 text-[12.5px]'>
@@ -83,18 +125,18 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               maxWidth='96px'
             />
             <TwoVerticalCellsPDF
-              top='EQ1A1Top'
-              bottom='EQ1A2Bottom'
+              top={eq1a1Top}
+              bottom={eq1a1Bottom}
               minWidth="118px"
               maxWidth="118px"
             />
             <ThreeCellsPDF
-              topLeft='EQ1A2Top'
-              bottomLeft='EQ1A2Bottom'
-              right='EQ1NoteStandard'
+              topLeft={eq1a2Top}
+              bottomLeft={eq1a2Bottom}
+              right={`${((+eq1a2Top) + (+eq1a2Bottom))/2}`}
             />
           </div>
-          <FourRowsCells borderTop={false} bold={false} cell1="&Eacute;q2" cell2="Marcher T/P en avant" cell3="Eq2NoteBrute" cell4="Eq2NoteStandard"/>
+          <FourRowsCells borderTop={false} bold={false} cell1="&Eacute;q2" cell2="Marcher T/P en avant" cell3={eq2NoteBrute} cell4={eq2NoteStandard} />
           <div className='w-full flex'>
             <div className='min-w-[70px] border-l border-r border-b border-black flex items-center pl-1 text-[12.5px]'>
               &Eacute;q3
@@ -106,15 +148,15 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               maxWidth='96px'
             />
             <TwoVerticalCellsPDF
-              top='EQ3A1Top'
-              bottom='EQ3A2Bottom'
+              top={eq3a1Top}
+              bottom={eq3a1Bottom}
               minWidth="118px"
               maxWidth="118px"
             />
             <ThreeCellsPDF
-              topLeft='EQ3A2Top'
-              bottomLeft='EQ3A2Bottom'
-              right='EQ3NoteStandard'
+              topLeft={eq3a2Top}
+              bottomLeft={eq3a2Bottom}
+              right={`${((+eq3a2Top) + (+eq3a2Bottom))/2}`}
             />
           </div>
           <div className='h-2.5' />
@@ -123,8 +165,8 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               <span className='font-bold'>Note totale de test</span><br/>
               <span>Somme des notes standard des 8 items</span>
             </div>
-            <div className='text-center px-2 pt-1 w-1/3'>
-              Note totale
+            <div className='text-center px-2 pt-1 w-1/3 flex items-center justify-center font-bold'>
+              {scoreTotalTest}
             </div>
           </div>
         </div>
@@ -174,13 +216,13 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               Dextérité manuelle DM1 + DM2 + DM3
             </div>
             <div className='border-black border-l border-r border-b px-1.5 flex w-full'>
-              <div className='border-r border-black pb-2.5 w-2/3'>
-                Note de composante : <br/>
-                <span className='font-bold'>DM1 + DM2 + DM3</span>
+              <div className='border-r border-black pb-2.5 w-2/3 flex flex-col'>
+                <span>Note de composante :</span>
+                <span className='font-bold text-center'>{DMScoreTotal}</span>
               </div>
-              <div className='pb-2.5 pl-1 w-1/3'>
-                Percentile : <br/>
-                <span className='font-bold'>DM1 + DM2 + DM3</span>
+              <div className='pb-2.5 pl-1 w-1/3 flex flex-col'>
+                <span>Percentile : </span>
+                <span className='font-bold text-center'>{DMPercentile}</span>
               </div>
             </div>
           </div>
@@ -189,13 +231,13 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               Viser et attrapper VA1 + VA2
             </div>
             <div className='border-black border-l border-r border-b px-1.5 flex w-full'>
-              <div className='border-r border-black pb-2.5 w-2/3'>
-                Note de composante : <br/>
-                <span className='font-bold'>VA1 + VA2</span>
+              <div className='border-r border-black pb-2.5 w-2/3 flex flex-col'>
+                <span>Note de composante :</span>
+                <span className='font-bold text-center'>{VAScoreTotal}</span>
               </div>
-              <div className='pb-2.5 pl-1 w-1/3'>
-                Percentile : <br/>
-                <span className='font-bold'>VA1 + VA2</span>
+              <div className='pb-2.5 pl-1 w-1/3 flex flex-col'>
+                <span>Percentile : </span>
+                <span className='font-bold text-center'>{VAPercentile}</span>
               </div>
             </div>
           </div>
@@ -204,35 +246,39 @@ const PdfDocument: ForwardRefExoticComponent<PdfDocumentProps & RefAttributes<HT
               Équilibre Éq1 + Éq2 + Éq3
             </div>
             <div className='border-black border-l border-r border-b px-1.5 flex w-full'>
-              <div className='border-r border-black pb-2.5 w-2/3'>
-                Note de composante : <br/>
-                <span className='font-bold'>Éq1 + Éq2 + Éq3</span>
+              <div className='border-r border-black pb-2.5 w-2/3 flex flex-col'>
+                <span>Note de composante :</span>
+                <span className='font-bold text-center'>{eqScoreTotal}</span>
               </div>
-              <div className='pb-2.5 pl-1 w-1/3'>
-                Percentile : <br/>
-                <span className='font-bold'>Éq1 + Éq2 + Éq3</span>
+              <div className='pb-2.5 pl-1 w-1/3 flex flex-col'>
+                <span>Percentile : </span>
+                <span className='font-bold text-center'>{eqPercentile}</span>
               </div>
             </div>
           </div>
           <div className='absolute text-[12.5px] w-full top-[640px] border-t border-black'>
             <div className='border-black border-l border-r border-b px-1.5 flex w-full'>
-              <div className='border-r border-black pb-2.5 w-2/3 font-bold'>
+              <div className='border-r border-black pb-2.5 w-3/5 font-bold'>
                 Note totale de test
               </div>
-              <div className='pb-2.5 pl-1 w-1/3'>
+              <div className='pb-2.5 pl-1 w-2/5 font-bold'>
                 Rang percentile
               </div>
             </div>
             <div className='border-black border-l border-r border-b px-1.5 flex w-full'>
-              <div className='border-r border-black pb-2.5 w-2/3'>
-                Note totale
+              <div className='border-r border-black px-1.5 py-1 w-3/5 flex justify-center items-center font-bold text-center'>
+                {scoreTotalTest}
               </div>
-              <div className='pb-2.5 pl-1 w-1/3'>
-                Percentile
+              <div className='w-2/5 flex justify-center items-center font-bold text-center'>
+                {percentileTotal}
               </div>
             </div>
           </div>
         </article>
+      </section>
+      <section className='mt-2.5'>
+        <h3 className='text-sm font-bold'>Commentaires et remarques</h3>
+        <div className='border border-black w-full h-40 p-2 text-xs' dangerouslySetInnerHTML={{__html: comment}}/>
       </section>
     </main>
   )

@@ -1,4 +1,6 @@
-import React, { Dispatch, FC, FormEvent, SetStateAction } from 'react'
+import React, { Dispatch, FC, SetStateAction } from 'react'
+import ReactQuill from 'react-quill'
+import 'react-quill/dist/quill.snow.css';
 
 type CommentSectionProps = {
   setText: Dispatch<SetStateAction<string>>
@@ -6,10 +8,13 @@ type CommentSectionProps = {
 }
 
 const CommentSection: FC<CommentSectionProps> = ({ setText, text }) => {
+  const module = {
+    toolbar: ['bold', 'italic', 'underline', 'strike']
+  }
   return (
-    <section className='mt-5'>
+    <section className='my-1.5'>
       <h3 className='text-sm font-bold'>Commentaires et remarques</h3>
-      <textarea className='border border-black w-full h-32 p-2 text-xs' onChange={(event: FormEvent<HTMLTextAreaElement>)=> setText(event.currentTarget.value)}/>
+      <ReactQuill modules={module} theme="snow" value={text} onChange={setText} />
     </section>
   )
 }
