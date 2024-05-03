@@ -88,9 +88,9 @@ const CahierNotations: FC = () => {
 
   const scoreTotalTest: string = useMemo(()=> {
     return (
-      DMScoreTotal !== "En attente de valeurs pour tous les items DM" 
-      && VAScoreTotal !== "En attente de valeurs pour tous les items VA" 
-      && EqScoreTotal !== "En attente de valeurs pour tous les items Eq."
+      DMScoreTotal !== "Remplir toutes les valeurs DM" 
+      && VAScoreTotal !== "Remplir toutes les valeurs VA" 
+      && EqScoreTotal !== "Remplir toutes les valeurs Eq."
     )
     ? ((+DMScoreTotal) + (+VAScoreTotal) + (+EqScoreTotal)).toString() :"En attente des résultats des 8 items"
 
