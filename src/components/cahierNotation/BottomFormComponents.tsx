@@ -244,7 +244,7 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
             <b>Note totale de test</b><br/>
             Somme des notes standard des 8 items
           </div>
-          <div className={`${returnFontSize(returnFontSize(scoreTotalTest))} px-1 text-center text-red-800 font-bold flex justify-center items-center w-1/2 text-base`}>
+          <div className={`${returnFontSize(scoreTotalTest)} px-1 text-center text-red-800 font-bold flex justify-center items-center w-1/2`}>
             { scoreTotalTest }
           </div>
         </article>
