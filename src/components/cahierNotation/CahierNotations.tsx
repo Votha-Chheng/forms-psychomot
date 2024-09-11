@@ -1,6 +1,6 @@
 'use client'
 
-import React, { FC, useMemo, useRef, useState } from 'react'
+import React, { Dispatch, FC, SetStateAction, useEffect, useMemo, useRef, useState } from 'react'
 import PageA4 from '../layout/PageA4'
 import TopFormComponents from './TopFormComponents'
 import BottomFormComponents from './BottomFormComponents'
@@ -8,14 +8,19 @@ import PdfDocument from '../PdfDocument'
 import { useReactToPrint } from 'react-to-print'
 import dynamic from 'next/dynamic'
 import { transformDateToFrench } from '@/utils/transformDateToFrench'
+import { mapDataForLocalStorage } from '@/utils/mapDataForLocalStorage'
+import { DataPatient } from '@/@types/dataPatient'
+import { getListeFromLocalStorage } from '@/utils/localStorageActions'
+import ButtonsList from './ButtonsList'
 
 const DynamicCommentSection = dynamic(()=> import("../shared/CommentSection"), {ssr: false} )
 
 const CahierNotations: FC = () => {
+  const [patientsInLocalStorage, setPatientsInLocalStorage] = useState<DataPatient[]>([])
   const [modify, setModify] = useState<boolean>(true)
   const [nom, setNom] = useState<string>("")
   const [prenom, setPrenom] = useState<string>("")
-  const [age, setAge] = useState<number>(0)
+  const [age, setAge] = useState<string>("")
   const [classe, setClasse] = useState<string>("")
   const [dateTest, setDateTest] = useState<string>("")
   const [comment, setComment] = useState<string>("")
@@ -24,7 +29,6 @@ const CahierNotations: FC = () => {
   const [DM1a2Top, setDM1a2Top] = useState<string>("")
   const [DM1a1Bottom, setDM1a1Bottom] = useState<string>("")
   const [DM1a2Bottom, setDM1a2Bottom] = useState<string>("")
-
 
   const [DM2NoteBrute, setDM2NoteBrute] = useState<string>("")
   const [DM2NoteStandard, setDM2NoteStandard] = useState<string>("")
@@ -80,7 +84,7 @@ const CahierNotations: FC = () => {
 
   }, [VA1NoteStandard, VA2NoteStandard])
 
-  const EqScoreTotal = useMemo(()=> {
+  const eqScoreTotal = useMemo(()=> {
     return (eq1End !== "Vide" && eq2NoteStandard !== "" && eq3End !== "Vide") ? ((+eq1End) + (+eq2NoteStandard) + (+eq3End)).toString() :"Remplir toutes les valeurs Eq."
 
   }, [eq1End, eq2NoteStandard, eq3End])
@@ -90,11 +94,11 @@ const CahierNotations: FC = () => {
     return (
       DMScoreTotal !== "Remplir toutes les valeurs DM" 
       && VAScoreTotal !== "Remplir toutes les valeurs VA" 
-      && EqScoreTotal !== "Remplir toutes les valeurs Eq."
+      && eqScoreTotal !== "Remplir toutes les valeurs Eq."
     )
-    ? ((+DMScoreTotal) + (+VAScoreTotal) + (+EqScoreTotal)).toString() :"En attente des résultats des 8 items"
+    ? ((+DMScoreTotal) + (+VAScoreTotal) + (+eqScoreTotal)).toString() :"En attente des résultats des 8 items"
 
-  }, [DMScoreTotal, VAScoreTotal, EqScoreTotal])
+  }, [DMScoreTotal, VAScoreTotal, eqScoreTotal])
 
   const documentRef = useRef(null)
 
@@ -104,12 +108,164 @@ const CahierNotations: FC = () => {
     
   })
 
+  const arrayOfState = mapDataForLocalStorage([
+    DM1a1Bottom,  
+    DM1a1Top,
+    DM1a2Bottom,
+    DM1a2Top,
+    DM2NoteBrute,
+    DM2NoteStandard,
+    DM3NoteBrute,
+    DM3NoteStandard,
+    DMPercentile,
+    VA1NoteBrute,
+    VA1NoteStandard,  
+    VA2NoteBrute,  
+    VA2NoteStandard,  
+    VAPercentile,  
+    age,
+    classe,  
+    comment,  
+    dateTest,  
+    eq1a1Bottom,  
+    eq1a1Top,  
+    eq1a2Bottom,  
+    eq1a2Top,  
+    eq2NoteBrute,  
+    eq2NoteStandard,  
+    eq3a1Bottom,  
+    eq3a1Top,  
+    eq3a2Bottom,  
+    eq3a2Top,  
+    eqPercentile,  
+    nom,
+    percentileTotal,
+    prenom,
+  ])
+
+  const saveInLocalStorage = ()=> {
+    const data = localStorage.getItem("testMBA")
+
+    console.log(data)
+
+    let newListe
+
+    if(data){
+      const liste: DataPatient[] = JSON.parse(data)
+      const arrayResult = liste.filter((data: DataPatient)=> data.nom === nom && data.prenom === prenom) 
+
+      if(arrayResult.length>0){
+        const newArray = liste.filter((data: DataPatient)=> data.nom !== nom && data.prenom !== prenom) 
+        newListe = [...newArray, arrayOfState]
+      } else {
+        newListe = [...liste, arrayOfState]
+      }
+    } else {
+      newListe = [arrayOfState]
+    }
+    
+    localStorage.setItem("testMBA", JSON.stringify(newListe))
+
+    const res = getListeFromLocalStorage("testMBA")
+    setPatientsInLocalStorage(res)
+  }
+
+  const resetState = ()=> {
+    setNom("")
+    setPrenom("")
+    setAge("")
+    setClasse("")
+    setDateTest("")
+    setComment("")
+    setDM1a1Top("")
+    setDM1a2Top("")
+    setDM1a1Bottom("")
+    setDM1a2Bottom("")
+    setDM2NoteBrute("")
+    setDM2NoteStandard("")
+    setDM3NoteBrute("")
+    setDM3NoteStandard("")
+    setDMPercentile("")
+    setVA1NoteBrute("")
+    setVA1NoteStandard("")
+    setVA2NoteBrute("")
+    setVA2NoteStandard("")
+    setVAPercentile("")
+    setEq1a1Top("")
+    setEq1a1Bottom("")
+    setEq1a2Top("")
+    setEq1a2Bottom("")
+    setEq2NoteBrute("")
+    setEq2NoteStandard("")
+    setEq3a1Top("")
+    setEq3a1Bottom("")
+    setEq3a2Top("")
+    setEq3a2Bottom("")
+    setEqPercentile("")
+    setPercentileTotal("")
+  }
+
+  const arrayOfSetter = [
+    setDM1a1Bottom,
+    setDM1a1Top,
+    setDM1a2Bottom,
+    setDM1a2Top,
+    setDM2NoteBrute,
+    setDM2NoteStandard,
+    setDM3NoteBrute,
+    setDM3NoteStandard,
+    setDMPercentile,
+    setVA1NoteBrute,
+    setVA1NoteStandard,
+    setVA2NoteBrute,
+    setVA2NoteStandard,
+    setVAPercentile,
+    setAge,
+    setClasse,
+    setComment,
+    setDateTest,
+    setEq1a1Bottom,
+    setEq1a1Top,
+    setEq1a2Bottom,
+    setEq1a2Top,
+    setEq2NoteBrute,
+    setEq2NoteStandard,
+    setEq3a1Bottom,
+    setEq3a1Top,
+    setEq3a2Bottom,
+    setEq3a2Top,
+    setEqPercentile,
+    setNom,
+    setPercentileTotal,
+    setPrenom,
+  ]
+
+  const loadDataPatient = (arrayOfSetter: (Dispatch<SetStateAction<string>>)[], valuesListe: string[])=> {
+    for (let i=0; i<arrayOfSetter.length; i++){
+      arrayOfSetter[i](valuesListe[i])
+    }
+  }
+
+  useEffect(()=> {
+    const res = getListeFromLocalStorage("testMBA")
+    setPatientsInLocalStorage(res)
+  }, [])
+
   return (
     <>
-      <div className='absolute flex flex-col'>
-        <button className={`${modify ? "bg-green-700":"bg-slate-500"} text-white rounded-md p-2 m-3`} onClick={()=>setModify(prev=> !prev)}>{modify ? "Visualiser le PDF":"Modifier le formulaire"}</button>
-        <button className={`${!modify ? "bg-green-700" : "bg-slate-200"} text-white rounded-md p-2 m-3`} onClick={()=>generatePDF()} disabled={modify}>Télécharger le pdf</button>
-      </div>
+      <ButtonsList 
+        modify={modify} 
+        setModify={setModify} 
+        saveInLocalStorage={saveInLocalStorage} 
+        resetState={resetState} 
+        generatePDF={generatePDF} 
+        nom={nom} 
+        prenom={prenom} 
+        patientsListe={patientsInLocalStorage} 
+        setPatientsListe={setPatientsInLocalStorage}
+        loadDataPatient={loadDataPatient}
+        arrayOfSetter={arrayOfSetter}
+      />
       {
         modify
         ?
@@ -136,7 +292,7 @@ const CahierNotations: FC = () => {
             scoreTotalTest={scoreTotalTest}
             DMScoreTotal={DMScoreTotal}
             VAScoreTotal={VAScoreTotal}
-            eqScoreTotal={EqScoreTotal}
+            eqScoreTotal={eqScoreTotal}
             percentileTotal={percentileTotal}
             setPercentileTotal={setPercentileTotal}
             DM1a1Top={DM1a1Top}
@@ -230,7 +386,7 @@ const CahierNotations: FC = () => {
           scoreTotalTest={scoreTotalTest}
           DMScoreTotal={DMScoreTotal}
           VAScoreTotal={VAScoreTotal}
-          eqScoreTotal={EqScoreTotal}
+          eqScoreTotal={eqScoreTotal}
           percentileTotal={percentileTotal}
         />
       }

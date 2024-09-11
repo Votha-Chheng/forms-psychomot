@@ -172,14 +172,14 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
           </div>
           <div className='text-xs text-center flex items-center min-w-[104px]'>
             <div className='flex flex-col w-1/2 justify-center border-r border-black h-[122px]'>
-              <div className='h-[61px] bg-purple-700 flex items-center justify-center border-b border-black'>
+              <div className='h-[61px] bg-purple-500 flex items-center justify-center border-b border-black'>
                 <input 
                   className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
                   onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a2Top(event.currentTarget.value)} 
                   value={eq1a2Top}
                 />
               </div>
-              <div className='h-[61px] bg-purple-700 flex items-center justify-center'>
+              <div className='h-[61px] bg-purple-500 flex items-center justify-center'>
                 <input 
                   className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
                   onChange={(event:FormEvent<HTMLInputElement>)=>setEq1a2Bottom(event.currentTarget.value)} 
@@ -187,8 +187,8 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
                 />
               </div>
             </div>
-            <div className='min-w-[50%]'>
-              <span className='px-1 h-[122px] w-[51px] text-purple-700 font-bold'>{eq1End}</span>
+            <div className='min-w-[50%] bg-purple-700 h-[122px] w-[51px] flex flex-col justify-center items-center'>
+              <div className='px-1 bg-white w-[40px] h-[40px] rounded-full font-bold flex items-center justify-center text-purple-700'>{eq1End}</div>
             </div>
           </div>
         </article>
@@ -217,7 +217,7 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
           <div className='text-xs text-center flex items-center min-w-[104px]'>
             <div className='text-xs text-center flex items-center min-w-[104px]'>
               <div className='flex flex-col w-1/2 justify-center border-r border-black h-[122px]'>
-                <div className='h-[61px] bg-purple-700 flex items-center justify-center border-b border-black'>
+                <div className='h-[61px] bg-purple-500 flex items-center justify-center border-b border-black'>
                   <input 
                     className='border-b text-center w-[48px] h-[50px] text-purple-700 font-bold bg-white rounded-full border-black px-1' 
                     onChange={(event:FormEvent<HTMLInputElement>)=>setEq3a2Top(event.currentTarget.value)} 
@@ -232,8 +232,8 @@ const BottomFormComponents: FC<BottomFormComponentsProps> = (
                   />
                 </div>
               </div>
-              <div className='min-w-[50%]'>
-                <span className='px-1 h-[122px] w-[51px] text-purple-700 font-bold'>{eq3End}</span>
+              <div className='min-w-[50%] h-[122px] w-[51px] flex justify-center items-center bg-purple-700'>
+                <div className='px-1 w-[40px] h-[40px] text-purple-700 font-bold bg-white flex items-center justify-center rounded-full'>{eq3End}</div>
               </div>
             </div>
           </div>
